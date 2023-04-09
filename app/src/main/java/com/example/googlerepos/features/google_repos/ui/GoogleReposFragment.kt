@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.googlerepos.R
 import com.example.googlerepos.databinding.FragmentGoogleReposBinding
 import com.example.googlerepos.base_mvvm.BaseFragment
+import com.example.googlerepos.features.google_repos.ui.details.DetailsFragment
+import com.example.googlerepos.utils.kotlin.addFragment
 
 class GoogleReposFragment : BaseFragment<GoogleReposViewModel>() {
-private lateinit var binding: FragmentGoogleReposBinding
+    private lateinit var binding: FragmentGoogleReposBinding
+
     companion object {
         fun newInstance() = GoogleReposFragment()
 
@@ -19,7 +23,6 @@ private lateinit var binding: FragmentGoogleReposBinding
 
     override val viewModel: GoogleReposViewModel by viewModels()
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +34,6 @@ private lateinit var binding: FragmentGoogleReposBinding
         // Giving the binding access to the GoogleReposViewModel
         binding.viewModel = viewModel
 
-        binding.reposList.adapter = ReposAdapter(listener =  RepoItemListener { viewModel.showToast.value= "Test" })
 
         return binding.root
     }
@@ -43,11 +45,19 @@ private lateinit var binding: FragmentGoogleReposBinding
         viewModel.fetchRepos()
 
     }
-    private fun setupObservers(){
-         viewModel.repos.observe(viewLifecycleOwner){
-             binding.reposList.layoutManager =
-                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-         }
+    private fun setupObservers() {
+        viewModel.repos.observe(viewLifecycleOwner) {
+            binding.reposList.adapter =
+                ReposAdapter(listener = RepoItemListener {
+                    addFragment(
+                        R.id.container,
+                        DetailsFragment.newInstance()
+                    )
+                })
+            binding.reposList.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        }
     }
 }

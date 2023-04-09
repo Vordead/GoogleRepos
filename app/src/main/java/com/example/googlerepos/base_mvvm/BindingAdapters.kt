@@ -43,7 +43,6 @@ fun bindRecyclerView(
     data: List<RepositoryItem>?
 ) {
 
-    val adapter = recyclerView.adapter as ReposAdapter
-    adapter.submitList(data)
+    (recyclerView.adapter as ReposAdapter?)?.submitList(data)
 
 }

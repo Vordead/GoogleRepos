@@ -1,8 +1,8 @@
 package com.example.googlerepos.features.google_repos.model
 
-import com.squareup.moshi.Json
+//import com.squareup.moshi.Json
 
-data class MarsPhoto(
-    val id: String,
-    @Json(name = "img_src") val imgSrcUrl: String
-)
+//data class MarsPhoto(
+//    val id: String,
+//    @Json(name = "img_src") val imgSrcUrl: String
+//)
