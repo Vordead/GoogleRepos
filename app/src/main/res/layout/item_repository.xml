@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="repo"
+            type="com.example.googlerepos.features.google_repos.model.RepositoryItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="12dp">
+
+        <ImageView
+            android:id="@+id/owner_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_person_placeholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:imageUrl="@{repo.owner.avatar_url}"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/repo_name_text"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/owner_avatar"
+            app:layout_constraintTop_toTopOf="@id/owner_avatar"
+            app:layout_constraintTop_toBottomOf="@id/owner_avatar"
+            app:layout_constraintBottom_toTopOf="@id/creation_date_text"
+            android:layout_marginStart="16dp"
+            android:text="@{repo.full_name}"
+            tools:text="Mohamad Hamade"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/creation_date_text"
+            style="@style/TextAppearance.Material3.BodyMedium"
+            android:layout_marginStart="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/owner_avatar"
+            app:layout_constraintTop_toBottomOf="@id/repo_name_text"
+            app:layout_constraintBottom_toBottomOf="@id/owner_avatar"
+            android:paddingBottom="4dp"
+            android:text="@{repo.created_at}"
+            tools:text="2011-06-22T18:55:12Z"
+            tools:visibility="visible" />
+
+        <View
+            android:id="@+id/divider"
+            app:layout_constraintTop_toBottomOf="@id/creation_date_text"
+            app:layout_constraintStart_toStartOf="@id/creation_date_text"
+            android:layout_width="wrap_content"
+            android:background="@color/primary"
+            android:backgroundTint="@color/primary"
+            android:layout_height="1dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

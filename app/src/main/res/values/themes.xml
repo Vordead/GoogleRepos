@@ -19,19 +19,4 @@
         <!-- Secondary brand color. -->
     </style>
 
-
-    <style name="Theme.AppSplash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/mobile2_5994f3f8_eddf_4fcd_806c_d04085bbbe90</item>
-        <item name="windowSplashScreenAnimationDuration">300</item>
-        <item name="postSplashScreenTheme">@style/Theme.GoogleRepos</item>
-
-        <!-- Status bar and Nav bar configs -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
-
-
-
 </resources>
