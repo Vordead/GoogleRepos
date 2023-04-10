@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.googlerepos.R
@@ -12,6 +14,8 @@ import com.example.googlerepos.base_mvvm.BaseFragment
 import com.example.googlerepos.databinding.FragmentGoogleReposBinding
 import com.example.googlerepos.features.google_repos.ui.details.DetailsFragment
 import com.example.googlerepos.utils.kotlin.addFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 private const val REPO_NAME = "google"
 
@@ -45,15 +49,17 @@ class GoogleReposFragment : BaseFragment<GoogleReposViewModel>() {
             )
         )
         binding.recyclerView.adapter = repoListAdapter.withLoadStateHeaderAndFooter(
-            header = RepoLoadStateAdapter(retry = { viewModel.retrySearch() }),
-            footer = RepoLoadStateAdapter(retry = { viewModel.retrySearch() })
+            header = RepoLoadStateAdapter(retry = { viewLifecycleOwner.lifecycleScope.launch { viewModel.retrySearch() } }),
+            footer = RepoLoadStateAdapter(retry = { viewLifecycleOwner.lifecycleScope.launch { viewModel.retrySearch() } })
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        viewModel.searchRepos(REPO_NAME).observe(viewLifecycleOwner) {
-            repoListAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.searchRepos(REPO_NAME)
+            viewModel.searchResultFlow.collectLatest {
+                repoListAdapter.submitData(it ?: PagingData.empty())
+            }
         }
-
         return binding.root
     }
 }
