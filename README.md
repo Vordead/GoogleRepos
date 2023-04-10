@@ -14,7 +14,7 @@ An Android application that retrieves all the repositories by Google from the Gi
 
 To use this app, you'll need Android Studio installed on your computer. Follow these steps to get started:
 
-1. Clone the repository: `git clone https://github.com/your-username/google-repos.git`
+1. Clone the repository: `git clone https://github.com/vordead/google-repos.git`
 2. Open the project in Android Studio
 3. Build and run the app on an emulator or physical device
 
