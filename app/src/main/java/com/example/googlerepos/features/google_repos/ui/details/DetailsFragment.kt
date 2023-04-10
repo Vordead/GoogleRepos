@@ -9,7 +9,7 @@ import com.example.googlerepos.base_mvvm.BaseFragment
 import com.example.googlerepos.databinding.FragmentDetailsBinding
 import com.example.googlerepos.features.google_repos.model.RepositoryItem
 
-const val ARG_VISIT_ITEM = "args_news_item"
+const val ARG_REPO_ITEM = "arg_repo_item"
 
 class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
@@ -21,7 +21,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
             repositoryItem: RepositoryItem,
         ): DetailsFragment {
             val args = Bundle()
-            args.putParcelable(ARG_VISIT_ITEM, repositoryItem)
+            args.putParcelable(ARG_REPO_ITEM, repositoryItem)
             val fragment = DetailsFragment()
             fragment.arguments = args
             return fragment
@@ -32,7 +32,7 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         arguments?.let {
-            repositoryItem = it.getParcelable(ARG_VISIT_ITEM)!!
+            repositoryItem = it.getParcelable(ARG_REPO_ITEM)!!
         }
         super.onCreate(savedInstanceState)
     }
