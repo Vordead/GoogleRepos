@@ -4,10 +4,8 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.googlerepos.R
-import com.example.googlerepos.features.google_repos.model.RepositoryItem
 import com.example.googlerepos.utils.kotlin.fadeIn
 import com.example.googlerepos.utils.kotlin.fadeOut
 
@@ -32,16 +30,5 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             error(R.drawable.ic_launcher_foreground)
         }
     }
-
-}
-
-
-@BindingAdapter("listData")
-fun bindRecyclerView(
-    recyclerView: RecyclerView,
-    data: List<RepositoryItem>?
-) {
-
-//    (recyclerView.adapter as ReposAdapter?)?.submitList(data)
 
 }

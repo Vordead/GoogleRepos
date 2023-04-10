@@ -2,30 +2,20 @@ package com.example.googlerepos.features.google_repos.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.example.googlerepos.R
-import com.example.googlerepos.databinding.LayoutItemViewBinding
+import com.example.googlerepos.databinding.LayoutItemRepositoryBinding
 import com.example.googlerepos.features.google_repos.model.RepositoryItem
 
 class RepoListAdapter(private val onItemClick: (RepositoryItem) -> Unit) :
     PagingDataAdapter<RepositoryItem, RepoListAdapter.ViewHolder>(COMPARATOR) {
 
-    class ViewHolder(private val binding: LayoutItemViewBinding) :
+    class ViewHolder(private val binding: LayoutItemRepositoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(repositoryItem: RepositoryItem, onItemClick: (RepositoryItem) -> Unit) {
-            binding.repoNameText.text = repositoryItem.full_name
-            binding.creationDateText.text = repositoryItem.created_at
-            val imgUri = repositoryItem.owner?.avatar_url?.toUri()?.buildUpon()?.scheme("https")?.build()
-            binding.ownerAvatar.load(imgUri) {
-                placeholder(R.drawable.ic_person_placeholder)
-                error(R.drawable.ic_launcher_foreground)
-            }
-
+            binding.repositoryItem = repositoryItem
             itemView.setOnClickListener {
                 onItemClick(repositoryItem)
             }
@@ -33,7 +23,7 @@ class RepoListAdapter(private val onItemClick: (RepositoryItem) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = LayoutItemViewBinding.inflate(
+        val binding = LayoutItemRepositoryBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -54,7 +44,7 @@ class RepoListAdapter(private val onItemClick: (RepositoryItem) -> Unit) :
                 oldItem.full_name == newItem.full_name
 
             override fun areContentsTheSame(oldItem: RepositoryItem, newItem: RepositoryItem): Boolean =
-                oldItem == newItem
+                oldItem.id == newItem.id
         }
     }
 }
