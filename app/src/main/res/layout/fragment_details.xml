@@ -22,15 +22,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/padding_xxlarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:text="@{repositoryItem.full_name}"/>
+
+
+        <ImageView
+            android:id="@+id/repo_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:imageUrl="@{repositoryItem.owner.avatar_url}"
+            android:contentDescription="@null" />
 
         <TextView
             android:id="@+id/creation_date_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/repo_name_text"
+            app:layout_constraintTop_toBottomOf="@id/repo_image"
+            style="@style/TextAppearance.Material3.LabelMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{repositoryItem.created_at}"/>
@@ -39,10 +54,11 @@
             android:id="@+id/stargazers_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_marginTop="@dimen/padding_large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/creation_date_text"
             android:text="@{repositoryItem.stargazers_count.toString()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
