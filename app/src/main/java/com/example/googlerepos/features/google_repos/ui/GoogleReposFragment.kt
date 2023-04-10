@@ -17,8 +17,6 @@ import com.example.googlerepos.utils.kotlin.addFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-private const val REPO_NAME = "google"
-
 class GoogleReposFragment : BaseFragment<GoogleReposViewModel>() {
     private lateinit var binding: FragmentGoogleReposBinding
 
@@ -30,6 +28,8 @@ class GoogleReposFragment : BaseFragment<GoogleReposViewModel>() {
     }
 
     companion object {
+        private const val REPO_NAME = "google"
+
         fun newInstance() = GoogleReposFragment()
     }
 
@@ -42,6 +42,12 @@ class GoogleReposFragment : BaseFragment<GoogleReposViewModel>() {
         binding = FragmentGoogleReposBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
                 activity,
@@ -60,6 +66,5 @@ class GoogleReposFragment : BaseFragment<GoogleReposViewModel>() {
                 repoListAdapter.submitData(it ?: PagingData.empty())
             }
         }
-        return binding.root
     }
 }
