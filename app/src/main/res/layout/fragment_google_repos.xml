@@ -14,21 +14,11 @@
         android:layout_height="match_parent"
         tools:context="com.example.android.marsphotos.overview.OverViewFragment">
 
-        <TextView
-            android:id="@+id/status_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@{viewModel.status}"/>
-
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/repos_list"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:listData="@{viewModel.repos}"
-            app:layout_constraintTop_toBottomOf="@id/status_text"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ProgressBar
             android:layout_width="wrap_content"

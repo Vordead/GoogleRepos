@@ -16,7 +16,7 @@ class ApiClient {
     private val requestTimeOut:Long = 50 //in seconds
 
     private var client: OkHttpClient? = null
-    var headers: HashMap<String, String>? = HashMap()
+    private var headers: HashMap<String, String>? = HashMap()
     private var retrofit: Retrofit? = null
 
     //--------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ class ApiClient {
                     if (response.request.body != null) {
                         Log.d("body:  ", response.request.body.toString())
                     }
-                    Log.d("Rawresponse:  ", raw)
+                    Log.d("RawResponse:  ", raw)
                     Log.d("Separator", "==================================")
                     retrofit = null
                     val body: ResponseBody = raw.toResponseBody(response.body!!.contentType())

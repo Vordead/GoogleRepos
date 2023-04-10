@@ -1,32 +1,60 @@
 package com.example.googlerepos.features.google_repos.ui.details
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.googlerepos.R
+import androidx.fragment.app.viewModels
+import com.example.googlerepos.base_mvvm.BaseFragment
+import com.example.googlerepos.databinding.FragmentDetailsBinding
+import com.example.googlerepos.features.google_repos.model.RepositoryItem
 
-class DetailsFragment : Fragment() {
+
+const val ARG_VISIT_ITEM = "args_news_item"
+
+
+class DetailsFragment : BaseFragment<DetailsViewModel>() {
+
+    private lateinit var repositoryItem: RepositoryItem
+
+
+    private lateinit var binding: FragmentDetailsBinding
 
     companion object {
-        fun newInstance() = DetailsFragment()
+        fun newInstance(
+            repositoryItem: RepositoryItem,
+        ): DetailsFragment {
+            val args = Bundle()
+            args.putParcelable(ARG_VISIT_ITEM, repositoryItem)
+            val fragment = DetailsFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
-    private lateinit var viewModel: DetailsViewModel
+    override val viewModel: DetailsViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        arguments?.let {
+            repositoryItem = it.getParcelable(ARG_VISIT_ITEM)!!
+        }
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_details, container, false)
+    ): View {
+        binding = FragmentDetailsBinding.inflate(inflater, container, false)
+//        binding.lifecycleOwner = viewLifecycleOwner
+//        binding.viewModel = viewModel
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.starName.text = repositoryItem.name
+
     }
 
 }

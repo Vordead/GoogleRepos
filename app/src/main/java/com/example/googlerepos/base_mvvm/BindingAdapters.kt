@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.googlerepos.R
 import com.example.googlerepos.features.google_repos.model.RepositoryItem
-import com.example.googlerepos.features.google_repos.ui.ReposAdapter
 import com.example.googlerepos.utils.kotlin.fadeIn
 import com.example.googlerepos.utils.kotlin.fadeOut
 
@@ -43,6 +42,6 @@ fun bindRecyclerView(
     data: List<RepositoryItem>?
 ) {
 
-    (recyclerView.adapter as ReposAdapter?)?.submitList(data)
+//    (recyclerView.adapter as ReposAdapter?)?.submitList(data)
 
 }

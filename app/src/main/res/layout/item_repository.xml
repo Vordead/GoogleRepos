@@ -35,7 +35,6 @@
             app:layout_constraintTop_toBottomOf="@id/owner_avatar"
             app:layout_constraintBottom_toTopOf="@id/creation_date_text"
             android:layout_marginStart="16dp"
-            android:text="@{repo.full_name}"
             tools:text="Mohamad Hamade"
             tools:visibility="visible" />
 
