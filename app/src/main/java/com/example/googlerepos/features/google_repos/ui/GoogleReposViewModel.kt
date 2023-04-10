@@ -7,7 +7,7 @@ import com.example.googlerepos.base_mvvm.BaseViewModel
 import com.example.googlerepos.features.google_repos.api.RetrofitClient
 import com.example.googlerepos.features.google_repos.data.repo.RepoListRepository
 import com.example.googlerepos.features.google_repos.model.RepositoryItem
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
 
 class GoogleReposViewModel : BaseViewModel() {
     private val repository: RepoListRepository = RepoListRepository(RetrofitClient.getNetworkApi())
@@ -15,21 +15,18 @@ class GoogleReposViewModel : BaseViewModel() {
     private var searchResult: Flow<PagingData<RepositoryItem>>? = null
     private var currentUserName: String? = null
 
-    private val _searchResultFlow = MutableStateFlow<PagingData<RepositoryItem>?>(null)
-    val searchResultFlow: StateFlow<PagingData<RepositoryItem>?> = _searchResultFlow.asStateFlow()
-
-    suspend fun searchRepos(username: String) {
+    fun searchRepos(username: String): Flow<PagingData<RepositoryItem>> {
         if (username == currentUserName && searchResult != null) {
-            _searchResultFlow.value = searchResult?.first()
-            return
+            return searchResult as Flow<PagingData<RepositoryItem>>
         }
         currentUserName = username
-        searchResult = repository.fetchRepos(username)
+        val newResult = repository.fetchRepos(username)
             .cachedIn(viewModelScope)
-        _searchResultFlow.value = searchResult?.first()
+        searchResult = newResult
+        return newResult
     }
 
-    suspend fun retrySearch() {
+    fun retrySearch() {
         if (currentUserName != null) {
             searchRepos(currentUserName!!)
         }

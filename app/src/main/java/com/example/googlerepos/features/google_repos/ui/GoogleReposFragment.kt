@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.googlerepos.R
@@ -60,10 +59,9 @@ class GoogleReposFragment : BaseFragment<GoogleReposViewModel>() {
         )
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.searchRepos(REPO_NAME)
-            viewModel.searchResultFlow.collectLatest {
-                repoListAdapter.submitData(it ?: PagingData.empty())
+        viewLifecycleOwner.lifecycleScope.launch{
+            viewModel.searchRepos(REPO_NAME).collectLatest { pagingData ->
+                repoListAdapter.submitData(pagingData)
             }
         }
     }
