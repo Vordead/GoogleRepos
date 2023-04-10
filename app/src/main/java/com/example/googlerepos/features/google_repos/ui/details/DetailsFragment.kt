@@ -9,15 +9,11 @@ import com.example.googlerepos.base_mvvm.BaseFragment
 import com.example.googlerepos.databinding.FragmentDetailsBinding
 import com.example.googlerepos.features.google_repos.model.RepositoryItem
 
-
 const val ARG_VISIT_ITEM = "args_news_item"
-
 
 class DetailsFragment : BaseFragment<DetailsViewModel>() {
 
     private lateinit var repositoryItem: RepositoryItem
-
-
     private lateinit var binding: FragmentDetailsBinding
 
     companion object {
@@ -46,15 +42,8 @@ class DetailsFragment : BaseFragment<DetailsViewModel>() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailsBinding.inflate(inflater, container, false)
-//        binding.lifecycleOwner = viewLifecycleOwner
-//        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.repositoryItem = repositoryItem
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.starName.text = repositoryItem.name
-
-    }
-
 }
