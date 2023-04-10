@@ -2,6 +2,7 @@ package com.example.googlerepos.features.google_repos.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -86,18 +87,26 @@ class GoogleReposViewModel : BaseViewModel() {
 //    }
 
 
-    private var repository: RepoListRepository = RepoListRepository(RetrofitClient.getNetworkApi())
+    private val repository: RepoListRepository = RepoListRepository(RetrofitClient.getNetworkApi())
+
+    private var searchResult: LiveData<PagingData<RepositoryItem>>? = null
     private var currentUserName: String? = null
-    private var currentSearchResult: Flow<PagingData<RepositoryItem>>? = null
-    fun searchRepos(username: String): Flow<PagingData<RepositoryItem>> {
-        val lastResult = currentSearchResult
-        if (username == currentUserName && lastResult != null) {
-            return lastResult
+
+    fun searchRepos(username: String): LiveData<PagingData<RepositoryItem>> {
+        if (username == currentUserName && searchResult != null) {
+            return searchResult as LiveData<PagingData<RepositoryItem>>
         }
         currentUserName = username
         val newResult = repository.fetchRepos(username)
             .cachedIn(viewModelScope)
-        currentSearchResult = newResult
+            .asLiveData()
+        searchResult = newResult
         return newResult
+    }
+
+    fun retrySearch() {
+        if (currentUserName != null) {
+            searchRepos(currentUserName!!)
+        }
     }
 }
