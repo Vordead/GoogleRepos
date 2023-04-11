@@ -1,5 +1,4 @@
 # GoogleRepos
-
 An Android application that retrieves all the repositories by Google from the GitHub API and displays them in a list using the Paging3 library.
 
 ## Technologies Used
